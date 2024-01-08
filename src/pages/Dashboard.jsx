@@ -6,9 +6,10 @@ import CssBaseline from "@mui/material/CssBaseline"
 import Toolbar from "@mui/material/Toolbar"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
+import { useSelector } from "react-redux"
 
 function Dashboard() {
-  const user = true
+  const {user} = useSelector((state)=> state.auth)
 
   return (
     <Box sx={{ display: "flex" }}>
