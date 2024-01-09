@@ -1,36 +1,36 @@
-import Avatar from "@mui/material/Avatar";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import LockIcon from "@mui/icons-material/Lock";
-import image from "../assets/result.svg";
-import { Link } from "react-router-dom";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
-import { Formik, Form } from "formik";
-import { object, string} from 'yup';
+import Avatar from "@mui/material/Avatar"
+import Container from "@mui/material/Container"
+import Grid from "@mui/material/Grid"
+import Typography from "@mui/material/Typography"
+import LockIcon from "@mui/icons-material/Lock"
+import image from "../assets/result.svg"
+import { Link } from "react-router-dom"
+import Box from "@mui/material/Box"
+import TextField from "@mui/material/TextField"
+import { Button } from "@mui/material"
+import { Formik, Form } from "formik"
+import { object, string } from "yup"
 import useAuthCalls from "../service/useAuthCalls"
 
-
-
 const Login = () => {
-  const {login} = useAuthCalls()
-  
+  const { login } = useAuthCalls()
+
   const loginSchema = object({
     email: string()
-    .email("Lutfen gecerli bir email giriniz")
-    .required("Email girisi zorunludur"),
+      .email("Lütfen geçerli bir email giriniz")
+      .required("Email girişi zorunludur"),
     password: string()
-    .required("Sifre zorunludur")
-    .min(8, "Sifre en az 8 karakter icermelidir")
-    .max(16, "Sifre en fazla 16 karakter icermelidir")
-    .matches(/\d+/, "Sifre en az bir rakam icermelidir")
-    .matches(/[a-z]/, "Sifre en az bir kucuk harf icermelidir")
-    .matches(/[A-Z]/, "Sifre en az bir buyuk harf icermelidir")
-    .matches(/[@$!%*?&]+/, "Sifre en az bir ozel karakter (@$!%*?&) icermelidir"),
-  });
-
+      .required("Şifre zorunludur.")
+      .min(8, "Şifre en az 8 karakter içermelidir")
+      .max(16, "Şifre en falza 16 karakter içermelidir")
+      .matches(/\d+/, "Şifre en az bir rakam içermelidir")
+      .matches(/[a-z]/, "Şifre en az bir küçük harf içermelidir")
+      .matches(/[A-Z]/, "Şifre en az bir büyük harf içermelidir")
+      .matches(
+        /[@$!%*?&]+/,
+        "Şifre en az bir özel karakter (@$!%*?&) içermelidir"
+      ),
+  })
   return (
     <Container maxWidth="lg">
       <Grid
@@ -74,11 +74,11 @@ const Login = () => {
             onSubmit={(values, actions) => {
               //TODO login(post) istegi
               login(values)
-              actions.resetForm();
-              actions.setSubmitting(false); //? isSubmitting
+              actions.resetForm()
+              actions.setSubmitting(false) //? isSubmitting
               //? veriler global state'e aktarilabilir
-              //? Navigasyon yapilabilir
-              //? tost yapilabilir
+              //? navigasyon yapılabilir
+              //? tost yapılabilr
             }}
           >
             {({ handleChange, values, touched, errors, handleBlur }) => (
@@ -128,7 +128,7 @@ const Login = () => {
         </Grid>
       </Grid>
     </Container>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
