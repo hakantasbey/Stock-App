@@ -1,44 +1,14 @@
-// import { createSlice } from '@reduxjs/toolkit'
-
-// const initialState = {
-//    firms:"",
-//    loading:false,
-//    error:false,
-// }
-
-// const stockSlice = createSlice({
-//   name: "stock",
-//   initialState,
-//   reducers: {
-//     fetchStart: (state)=>{
-//       state.loading=true
-//     },
-//     firms:(state, {payload})=>{
-//       state.loading=false
-//       state.firms=payload
-//     },
-//     fetchFail:(state)=>{
-//       state.loading=false
-//       state.error=true
-//     }
-//   }
-// });
-
-// export const {fetchFail, fetchStart, firms} = stockSlice.actions
-
-// export default stockSlice.reducer
-
-
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-  firms: [],
   products: [],
   purchases: [],
   brands: [],
   sales: [],
-  loading:false,
-  error:false,
+  categories: [],
+  loading: false,
+  error: false,
+  firms: [],
 }
 
 const stockSlice = createSlice({
@@ -46,19 +16,27 @@ const stockSlice = createSlice({
   initialState,
   reducers: {
     fetchStart: (state) => {
-      state.loading = true;
+      state.loading = true
     },
-    firmsSuccess:(state,{payload})=>{
-      state.loading=false
-      state.firms=payload.data
+    // getFirmsSuccess: (state, { payload }) => {
+    //   state.firms = payload
+    //   state.loading = false
+    // },
+    // getSalesSuccess: (state, { payload }) => {
+    //   state.sales = payload
+    //   state.loading = false
+    // },
+    getStocksSuccess: (state, { payload }) => {
+      state[payload.url] = payload.apiData
+      state.loading = false
     },
     fetchFail: (state) => {
-      state.loading = false;
-      state.error = true;
+      state.loading = false
+      state.error = true
     },
   },
 })
 
-export const {fetchStart,fetchFail,firmsSuccess} = stockSlice.actions
+export const { fetchStart, getStocksSuccess, fetchFail } = stockSlice.actions
 
 export default stockSlice.reducer

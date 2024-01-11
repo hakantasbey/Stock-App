@@ -1,46 +1,65 @@
-// import { useDispatch } from "react-redux"
-// import useAxios from "./useAxios"
-// import { firms } from "../features/stockSlice"
-
-// const useStockCalls = () => {
-//   const dispatch = useDispatch()
-//   const {axiosWithToken} = useAxios()
-
-
-//   const getFirms = async ()=>{
-//     try {
-//       const {data} = await axiosWithToken.get("/firms")
-//       console.log(data);
-//       dispatch(firms(data.data))
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-//   return {getFirms}
-// }
-
-// export default useStockCalls
-
-
-import { useDispatch } from 'react-redux'
-import { fetchStart, firmsSuccess } from '../features/stockSlice'
-import useAxios from './useAxios'
+import {
+  fetchStart,
+  fetchFail,
+  // getFirmsSuccess,
+  // getSalesSuccess,
+  getStocksSuccess,
+} from "../features/stockSlice"
+import useAxios from "./useAxios"
+import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify"
+import { useDispatch } from "react-redux"
 
 const useStockCalls = () => {
-const dispatch = useDispatch()
-const {axiosWithToken}= useAxios()
-const getFirms= async()=>{
+  const { axiosWithToken } = useAxios()
+  const dispatch = useDispatch()
+
+  //   const getFirms = async () => {
+  //     dispatch(fetchStart())
+  //     try {
+  //       const { data } = await axiosWithToken("/firms/")
+  //       dispatch(getFirmsSuccess(data.data))
+  //     } catch (error) {
+  //       dispatch(fetchFail())
+  //       toastErrorNotify("Firm bilgileri çekilemedi.")
+  //     }
+  //   }
+
+  //   const getSales = async () => {
+  //     dispatch(fetchStart())
+  //     try {
+  //       const { data } = await axiosWithToken("/sales/")
+  //       dispatch(getSalesSuccess(data.data))
+  //     } catch (error) {
+  //       dispatch(fetchFail())
+  //       toastErrorNotify("Sales bilgileri çekilemedi.")
+  //     }
+  //   }
+
+  const getStocks = async (url = "firms") => {
     dispatch(fetchStart())
     try {
-        const {data}= await axiosWithToken("/firms/")
-        dispatch(firmsSuccess(data))
-        console.log(data);
+      const { data } = await axiosWithToken(`/${url}/`)
+      const apiData = data.data
+      dispatch(getStocksSuccess({ apiData, url}))
     } catch (error) {
-        
+      dispatch(fetchFail())
+      toastErrorNotify(`${url} bilgileri çekilemedi.`)
     }
-}
-  return {getFirms}
+  }
 
+  const deleteStocks = async (url = "firms", id) => {
+    dispatch(fetchStart())
+    try {
+      await axiosWithToken.delete(`/${url}/${id}/`)
+      toastSuccessNotify(`${url} bilgisi silinmistir.`)
+      getStocks(url)
+    } catch (error) {
+      dispatch(fetchFail())
+      toastErrorNotify(`${url} silinemedi.`)
+    }
+  }
+
+  return { getStocks, deleteStocks }
 }
 
 export default useStockCalls
