@@ -7,7 +7,7 @@ import { modalStyle } from "../styles/globalStyles"
 import useStockCalls from "../service/useStockCalls"
 
 export default function FirmModal({ open, handleClose, info, setInfo }) {
-  const { postStock } = useStockCalls()
+  const { postStock, putStock } = useStockCalls()
 
   const handleChange = (e) => {
     // const { name, value } = e.target
@@ -15,9 +15,14 @@ export default function FirmModal({ open, handleClose, info, setInfo }) {
     setInfo({ ...info, [e.target.name]: e.target.value })
   }
 
+  console.log(info);
   const handleSubmit = (e) => {
     e.preventDefault()
+    if(info._id){
     postStock("firms", info)
+    }else{
+      putStock("firms", info)
+    }
     handleClose()
   }
 
@@ -77,7 +82,7 @@ export default function FirmModal({ open, handleClose, info, setInfo }) {
               required
             />
             <Button type="submit" variant="contained" size="large">
-              Submit
+              {info._id ? "UPdate Firm" : "Add Firm"}
             </Button>
           </Box>
         </Box>

@@ -71,10 +71,10 @@ const useStockCalls = () => {
     }
   }
 
-  const putStocks = async (url = "firms", id, info) => {
+  const putStocks = async (url = "firms", info) => {
     dispatch(fetchStart())
     try {
-      await axiosWithToken.put(`/${url}/${id}`, info)
+      await axiosWithToken.put(`/${url}/${info._id}`, info)
       toastSuccessNotify(`${url} kaydi guncellenmistir`)
       getStocks(url)
     } catch (error) {
