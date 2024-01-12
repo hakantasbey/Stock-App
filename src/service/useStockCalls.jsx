@@ -59,27 +59,27 @@ const useStockCalls = () => {
     }
   }
 
-  const postStocks = async (url = "firms", data) => {
+  const postStocks = async (url = "firms", info) => {
     dispatch(fetchStart())
     try {
-      await axiosWithToken.post(`/${url}`, data)
-      toastSuccessNotify(`${url} bilgisi silinmistir.`)
+      await axiosWithToken.post(`/${url}`, info)
+      toastSuccessNotify(`${url} kayidi eklenmistir.`)
       getStocks(url)
     } catch (error) {
       dispatch(fetchFail())
-      toastErrorNotify(`${url} silinemedi.`)
+      toastErrorNotify(`${url} kaydi eklenememistir.`)
     }
   }
 
-  const putStocks = async (url = "firms", data, id) => {
+  const putStocks = async (url = "firms", id, info) => {
     dispatch(fetchStart())
     try {
-      await axiosWithToken.put(`/${url}/${id}`, data)
-      // toastSuccessNotify(`${url} bilgisi silinmistir.`)
+      await axiosWithToken.put(`/${url}/${id}`, info)
+      toastSuccessNotify(`${url} kaydi guncellenmistir`)
       getStocks(url)
     } catch (error) {
       dispatch(fetchFail())
-      // toastErrorNotify(`${url} silinemedi.`)
+      toastErrorNotify(`${url} kaydi guncellenememistir.`)
     }
   }
 
