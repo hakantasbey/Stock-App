@@ -10,9 +10,14 @@ import { btnStyle } from "../styles/globalStyles"
 import useStockCalls from '../service/useStockCalls';
 
 
-const FirmCard = ({firm}) => {
+const FirmCard = ({firm, handleOpen}) => {
     const {address, image, name, phone, _id} = firm
     const { deleteStock } = useStockCalls()
+    
+    const handleEdit = (_id)=>{
+      handleOpen()
+      console.log(_id);
+    }
 
   return (
         <Card sx={{ 
@@ -50,7 +55,7 @@ const FirmCard = ({firm}) => {
           sx={btnStyle} 
           onClick={() => deleteStock("firms", _id)}
           />
-        <EditIcon sx={btnStyle} />
+        <EditIcon sx={btnStyle} onClick={ ()=>handleEdit(_id) } />
       </CardActions>
         </Card>
       );
