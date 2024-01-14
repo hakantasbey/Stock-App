@@ -19,14 +19,14 @@ export default function FirmModal({ open, handleClose, info, setInfo }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     if(info._id){
-    postStock("firms", info)
+    putStock("firms", info)   
     }else{
-      putStock("firms", info)
+      postStock("firms", info)
     }
     handleClose()
   }
 
-  console.log(info)
+  // console.log(info)
   return (
     <div>
       <Modal

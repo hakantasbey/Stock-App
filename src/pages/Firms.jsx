@@ -31,7 +31,7 @@ const Firms = () => {
     getStocks("firms")
   }, [])
 
-  console.log(firms)
+  // console.log(firms)
 
   return (
     <div>

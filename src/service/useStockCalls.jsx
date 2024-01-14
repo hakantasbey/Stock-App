@@ -47,7 +47,7 @@ const useStockCalls = () => {
     }
   }
 
-  const deleteStocks = async (url = "firms", id) => {
+  const deleteStock = async (url = "firms", id) => {
     dispatch(fetchStart())
     try {
       await axiosWithToken.delete(`/${url}/${id}/`)
@@ -59,11 +59,11 @@ const useStockCalls = () => {
     }
   }
 
-  const postStocks = async (url = "firms", info) => {
+  const postStock = async (url = "firms", info) => {
     dispatch(fetchStart())
     try {
       await axiosWithToken.post(`/${url}`, info)
-      toastSuccessNotify(`${url} kayidi eklenmistir.`)
+      toastSuccessNotify(`${url} kaydi eklenmistir.`)
       getStocks(url)
     } catch (error) {
       dispatch(fetchFail())
@@ -71,7 +71,7 @@ const useStockCalls = () => {
     }
   }
 
-  const putStocks = async (url = "firms", info) => {
+  const putStock = async (url = "firms", _id, info) => {
     dispatch(fetchStart())
     try {
       await axiosWithToken.put(`/${url}/${info._id}`, info)
@@ -84,7 +84,7 @@ const useStockCalls = () => {
   }
 
 
-  return { getStocks, deleteStocks, postStocks, putStocks }
+  return { getStocks, deleteStock, postStock, putStock }
 }
 
 export default useStockCalls
