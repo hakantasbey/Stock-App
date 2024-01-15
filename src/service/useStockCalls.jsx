@@ -71,7 +71,7 @@ const useStockCalls = () => {
     }
   }
 
-  const putStock = async (url = "firms", _id, info) => {
+  const putStock = async (url = "firms", info) => {
     dispatch(fetchStart())
     try {
       await axiosWithToken.put(`/${url}/${info._id}`, info)
