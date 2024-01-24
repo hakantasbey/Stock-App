@@ -35,7 +35,7 @@ const Products = () => {
       <Typography variant="h4" color="error" mb={3}>
         Products
       </Typography>
-      <Button variant="contained" sx={{mb:"3"}} onClick={handleOpen}>
+      <Button variant="contained" sx={{ mb: 3}} onClick={handleOpen}>
         New Product
       </Button>
 
