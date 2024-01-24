@@ -28,6 +28,8 @@ const Products = () => {
 
   useEffect(() => {
     getStocks("products")
+    getStocks("categories")
+    getStocks("brands")
   }, [])
 
   return (
