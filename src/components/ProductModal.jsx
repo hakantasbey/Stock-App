@@ -8,9 +8,11 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { useSelector } from "react-redux";
 
 export default function ProductModal({ open, handleClose, info, setInfo }) {
   const { postStock } = useStockCalls();
+  const { categories, brands } = useSelector((state)=> state.stock)
 
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
@@ -42,13 +44,34 @@ export default function ProductModal({ open, handleClose, info, setInfo }) {
               <Select
                 labelId="demo-simple-select-label"
                 id="categoryId"
+                name="categoryId"
                 value={info.categoryId}
                 label="Category"
                 onChange={handleChange}
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {categories.map((item)=>(
+                <MenuItem key={item._id} value={item._id}>
+                  {item.name}
+                </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+              <InputLabel id="brandId">Brand</InputLabel>
+              <Select
+                labelId="brandId"
+                id="brandId"
+                name="brandId"
+                value={info.brandId}
+                label="Brand"
+                onChange={handleChange}
+              >
+                {brands.map((item) => (
+                  <MenuItem key={item._id} value={item._id}>
+                    {item.name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
 
@@ -63,7 +86,7 @@ export default function ProductModal({ open, handleClose, info, setInfo }) {
               required
             />
             <Button type="submit" variant="contained" size="large">
-              {info._id ? "Update Firm" : "Add Firm"}
+              Add Product
             </Button>
           </Box>
         </Box>
