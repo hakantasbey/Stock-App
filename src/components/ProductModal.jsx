@@ -1,28 +1,26 @@
-import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
-import TextField from "@mui/material/TextField"
-import Modal from "@mui/material/Modal"
-import { modalStyle } from "../styles/globalStyles"
-import useStockCalls from "../service/useStockCalls"
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Modal from "@mui/material/Modal";
+import { modalStyle } from "../styles/globalStyles";
+import useStockCalls from "../service/useStockCalls";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
-export default function FirmModal({ open, handleClose, info, setInfo }) {
-  const { postStock, putStock } = useStockCalls()
+export default function ProductModal({ open, handleClose, info, setInfo }) {
+  const { postStock } = useStockCalls();
 
   const handleChange = (e) => {
-    setInfo({ ...info, [e.target.name]: e.target.value })
-  }
+    setInfo({ ...info, [e.target.name]: e.target.value });
+  };
 
-  // console.log(info)
   const handleSubmit = (e) => {
-    e.preventDefault()
-    if (info._id) {
-      putStock("firms", info)
-    } else {
-      postStock("firms", info)
-    }
-
-    handleClose()
-  }
+    e.preventDefault();
+    postStock("products", info);
+    handleClose();
+  };
 
   // console.log(info)
   return (
@@ -39,43 +37,28 @@ export default function FirmModal({ open, handleClose, info, setInfo }) {
             component="form"
             onSubmit={handleSubmit}
           >
+            <FormControl fullWidth>
+              <InputLabel id="categoryId">Category</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="categoryId"
+                value={info.categoryId}
+                label="Category"
+                onChange={handleChange}
+              >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
+
             <TextField
-              label="Firm Name"
+              label="Product Name"
               name="name"
               id="name"
               type="text"
               variant="outlined"
               value={info.name}
-              onChange={handleChange}
-              required
-            />
-            <TextField
-              label="Phone"
-              name="phone"
-              id="phone"
-              type="tel"
-              variant="outlined"
-              value={info.phone}
-              onChange={handleChange}
-              required
-            />
-            <TextField
-              label="Address"
-              name="address"
-              id="address"
-              type="text"
-              variant="outlined"
-              value={info.address}
-              onChange={handleChange}
-              required
-            />
-            <TextField
-              label="Image"
-              name="image"
-              id="image"
-              type="url"
-              variant="outlined"
-              value={info.image}
               onChange={handleChange}
               required
             />
@@ -86,5 +69,5 @@ export default function FirmModal({ open, handleClose, info, setInfo }) {
         </Box>
       </Modal>
     </div>
-  )
+  );
 }

@@ -12,18 +12,14 @@ const Products = () => {
   const { getStocks } = useStockCalls()
   const { products } = useSelector((state) => state.stock)
 
-  const [info, setInfo] = useState({
-    name: "",
-    phone: "",
-    address: "",
-    image: "",
-  })
+  const initialState = { categoryId: "", brandId: "", name: "" }
+  const [info, setInfo] = useState(initialState)
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => {
     setOpen(false)
-    setInfo({ name: "", phone: "", address: "", image: "" })
+    setInfo(initialState)
   }
 
   useEffect(() => {
